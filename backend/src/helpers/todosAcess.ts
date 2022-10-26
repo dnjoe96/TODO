@@ -84,3 +84,29 @@ export async function updateTodoById(todo: TodoItem): Promise<TodoItem> {
   
   return result.Attributes as TodoItem
 }
+
+
+export async function updateTodo(todo: TodoItem): Promise<TodoItem> {
+  await docClient.update({
+    TableName: todosTable,
+    Key: {
+      userId: todo.userId,
+      todoId: todo.todoId
+    },
+  }).promise()
+
+  return todo
+}
+
+
+export async function DeleteTodoById(todo: TodoItem): Promise<number> {
+  await docClient.delete({
+    TableName: todosTable,
+    Key: {
+      userId: todo.userId,
+      todoId: todo.todoId
+    },
+  }).promise()
+
+  return 1
+}
