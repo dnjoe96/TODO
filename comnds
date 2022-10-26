@@ -1,0 +1,2 @@
+configure aws cred for serverless => serverless config credentials --provider aws --key <Access Key ID> --secret <Secret Access Key>
+sls deploy --verbose
