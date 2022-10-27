@@ -5,7 +5,7 @@ import * as middy from 'middy'
 import { cors, httpErrorHandler } from 'middy/middlewares'
 
 // import { deleteTodo } from '../../businessLogic/todos'
-import { DeleteTodoById, getTodosById } from '../../helpers/todosAcess'
+import { DeleteTodoById, getTodosById } from '../../helpers/dataAccess/todosAcess'
 // import { getUserId } from '../utils'
 
 export const handler = middy(

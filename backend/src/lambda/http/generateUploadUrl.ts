@@ -6,8 +6,8 @@ import { cors, httpErrorHandler } from 'middy/middlewares'
 
 // import { createAttachmentPresignedUrl } from '../../businessLogic/todos'
 import { getUserId } from '../utils'
-import { getTodosById, updateTodoById } from '../../helpers/todosAcess'
-import { getUploadUrl } from '../../helpers/attachmentUtils'
+import { getTodosById, updateTodoById } from '../../helpers/dataAccess/todosAcess'
+import { getUploadUrl } from '../../helpers/dataAccess/attachmentUtils'
 
 const bucketName = process.env.ATTACHMENT_S3_BUCKET
 

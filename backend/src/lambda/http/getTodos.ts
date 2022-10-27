@@ -6,7 +6,7 @@ import { cors } from 'middy/middlewares'
 
 // import { getTodosForUser as getTodosForUser } from '../../businessLogic/todos'
 import { getUserId } from '../utils';
-import { getAllTodosByUserId } from '../../helpers/todosAcess';
+import { getAllTodosByUserId } from '../../helpers/dataAccess/todosAcess';
 
 // TODO: Get all TODO items for a current user
 export const handler = middy(

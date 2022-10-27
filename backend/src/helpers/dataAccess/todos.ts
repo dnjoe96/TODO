@@ -1,13 +1,13 @@
 // import { TodosAccess } from './todosAcess'
 // import { AttachmentUtils } from './attachmentUtils';
 // import { TodoItem } from '../models/TodoItem'
-import { CreateTodoRequest } from '../requests/CreateTodoRequest'
+import { CreateTodoRequest } from '../../requests/CreateTodoRequest'
 // import { UpdateTodoRequest } from '../requests/UpdateTodoRequest'
 // import { createLogger } from '../utils/logger'
 import * as uuid from 'uuid'
 import { APIGatewayProxyEvent } from 'aws-lambda'
 // import * as createError from 'http-errors'
-import { getUserId } from '../lambda/utils';
+import { getUserId } from '../../lambda/utils';
 
 // TODO: Implement businessLogic
 

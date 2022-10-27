@@ -1,32 +1,12 @@
-import * as AWS from 'aws-sdk'
-import * as AWSXRay from 'aws-xray-sdk'
-import { DocumentClient } from 'aws-sdk/clients/dynamodb'
 // import { createLogger } from '../utils/logger'
-import { TodoItem } from '../models/TodoItem'
+import { TodoItem } from '../../models/TodoItem'
 // import { TodoUpdate } from '../models/TodoUpdate';
-
-const XAWS = AWSXRay.captureAWS(AWS)
+import { UpdateTodoRequest } from '../../requests/UpdateTodoRequest'
+import { todoIndex, todosTable, docClient } from '../adapters/dynamodb'
 
 // const logger = createLogger('TodosAccess')
 
 // TODO: Implement the dataLayer logic
-
-const todosTable = process.env.TODOS_TABLE
-const todoIndex = process.env.TODOS_CREATED_AT_INDEX
-const docClient: DocumentClient = createDynamoDBClient()
-
-function createDynamoDBClient() {
-  if (process.env.IS_OFFLINE) {
-    console.log('Creating a local DynamoDB instance')
-    return new XAWS.DynamoDB.DocumentClient({
-      region: 'localhost',
-      endpoint: 'http://localhost:8000'
-    })
-  }
-
-  return new XAWS.DynamoDB.DocumentClient()
-}
-
 
 export async function createTodo(todo: TodoItem): Promise<TodoItem> {
   await docClient.put({
@@ -86,16 +66,21 @@ export async function updateTodoById(todo: TodoItem): Promise<TodoItem> {
 }
 
 
-export async function updateTodo(todo: TodoItem): Promise<TodoItem> {
-  await docClient.update({
+export async function updateTodo(updatedTodo: UpdateTodoRequest,todo: TodoItem): Promise<TodoItem> {
+  const result = await docClient.update({
     TableName: todosTable,
     Key: {
       userId: todo.userId,
       todoId: todo.todoId
     },
+    UpdateExpression: 'set dueDate = :dueDate, done = :done',
+    ExpressionAttributeValues: {
+        ":dueDate": updatedTodo.dueDate,
+        ":done": updatedTodo.done
+      }
   }).promise()
 
-  return todo
+  return result.Attributes as TodoItem
 }
 
 
