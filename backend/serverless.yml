@@ -8,6 +8,7 @@ plugins:
   - serverless-iam-roles-per-function
   - serverless-plugin-tracing
   - serverless-reqvalidator-plugin
+  - serverless-aws-documentation
 
 provider:
   name: aws
@@ -59,6 +60,7 @@ functions:
           path: todos
           cors: true
           authorizer: Auth
+          reqValidatorName: RequestBodyValidator
     iamRoleStatements:
       - Effect: Allow
         Action:
@@ -78,7 +80,7 @@ functions:
           authorizer: Auth
           reqValidatorName: RequestBodyValidator
           request:
-            schema:
+            schemas:
               application/json: ${file(models/create-todo-model.json)}
 
     iamRoleStatements:
@@ -101,7 +103,7 @@ functions:
           cors: true
           reqValidatorName: RequestBodyValidator
           request:
-            schema:
+            schemas:
               application/json: ${file(models/update-todo-model.json)}
 
     iamRoleStatements:
@@ -128,6 +130,7 @@ functions:
           path: todos/{todoId}
           authorizer: Auth
           cors: true
+          reqValidatorName: RequestBodyValidator
     iamRoleStatements:
       - Effect: Allow
         Action:
@@ -151,7 +154,7 @@ functions:
           path: todos/{todoId}/attachment
           cors: true
           authorizer: Auth
-    
+          reqValidatorName: RequestBodyValidator
     iamRoleStatements:
       - Effect: Allow
         Action:
